@@ -1,7 +1,7 @@
 import { create } from 'axios'
 
-const base = 'http://localhost:8000/api/'
-// const base = "https://neoway-api.herokuapp.com/api/"
+// const base = 'http://localhost:8000/api/'
+const base = "https://neoway-api.herokuapp.com/api/"
 
 const api = create({
     baseURL: base,
