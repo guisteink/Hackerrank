@@ -1,7 +1,7 @@
 import { create } from 'axios'
 
-// const base = 'http://localhost:3030/api/'
-const base = "https://neoway-api.herokuapp.com/api/"
+const base = 'http://localhost:8000/api/'
+// const base = "https://neoway-api.herokuapp.com/api/"
 
 const api = create({
     baseURL: base,
@@ -40,9 +40,14 @@ const getById = id =>
     return api.get(`/${id}`)
 }
 
-const listAll = () =>
+const listAll = (status, date) =>
 {
-    return api.get("/list/all")
+    let params = '';
+    if (status && date) params += `status=${status}&date=${date}`
+    else if (!status && date) params += `date=${date}`
+    else if (status) params += `status=${status}`
+
+    return api.get(`/list/all?${params}`)
 }
 
 const addToBlockList = (data) =>
@@ -50,14 +55,19 @@ const addToBlockList = (data) =>
     return api.post("/blocklist", data)
 }
 
-const removeFromBlockList = (id, data) =>
+const removeFromBlockList = (id) =>
 {
-    return api.delete(`/blocklist/${id}`, data)
+    return api.delete(`/blocklist/${id}`)
 }
 
-const getBlocklist = () =>
+const getBlocklist = (status, date) =>
 {
-    return api.get("blocklist/list/all")
+    let params = '';
+    if (status && date) params += `status=${status}&date=${date}`
+    else if (!status && date) params += `date=${date}`
+    else if (status) params += `status=${status}`
+
+    return api.get(`blocklist/list/all?${params}`)
 }
 
 export default {
